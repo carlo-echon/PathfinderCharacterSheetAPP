@@ -34,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> pages = [
     const CharSheetStats(),
+    const InventoryPage(),
     const SpellbookPage(),
     const SettingsPage(),
   ];
@@ -56,6 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
           NavigationDestination(
             icon: Icon(Icons.assignment),
             label: 'Stats',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.shopping_bag),
+            label: 'Inventory',
           ),
           NavigationDestination(
             icon: Icon(Icons.book),
@@ -81,11 +86,55 @@ class CharSheetStats extends StatefulWidget {
 class _CharSheetStatsState extends State<CharSheetStats> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Character Stats Page'),
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Column(
+                children: [
+                  Text("Character Name"),
+                  Text("Level"),
+                ],
+              ),
+              Column(
+                children: [Text("Armor Class"),],
+              ),
+              Column(
+                children: [
+                  Text("Class"),
+                  Text("Sub-class"),
+                ],
+                ),
+            ],
+          ),
+          Row(
+            children: [
+              Text('Stats: Str Dex Wis Cha Int Con'),
+            ],
+            ),
+        ],
+      ),
     );
   }
 }
+
+class InventoryPage extends StatefulWidget {
+  const InventoryPage({super.key});
+
+  @override
+  _InventoryPageState createState() => _InventoryPageState();
+}
+
+class _InventoryPageState extends State<InventoryPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Inventory Page'),
+    );
+  }
+}
+
 
 class SpellbookPage extends StatefulWidget {
   const SpellbookPage({super.key});
