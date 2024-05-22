@@ -1,20 +1,120 @@
 import 'package:flutter/material.dart';
 
-import 'src/app.dart';
-import 'src/settings/settings_controller.dart';
-import 'src/settings/settings_service.dart';
+void main() {
+  runApp(const MyApp());
+}
 
-void main() async {
-  // Set up the SettingsController, which will glue user settings to multiple
-  // Flutter Widgets.
-  final settingsController = SettingsController(SettingsService());
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  // Load the user's preferred theme while the splash screen is displayed.
-  // This prevents a sudden theme change when the app is first displayed.
-  await settingsController.loadSettings();
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Character Sheet App',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 75, 71, 71)),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Character Sheet App'),
+    );
+  }
+}
 
-  // Run the app and pass in the SettingsController. The app listens to the
-  // SettingsController for changes, then passes it further down to the
-  // SettingsView.
-  runApp(MyApp(settingsController: settingsController));
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int currentPageIndex = 0;
+
+  final List<Widget> pages = [
+    const CharSheetStats(),
+    const SpellbookPage(),
+    const SettingsPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: pages[currentPageIndex],
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: currentPageIndex,
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        destinations: const <NavigationDestination>[
+          NavigationDestination(
+            icon: Icon(Icons.assignment),
+            label: 'Stats',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.book),
+            label: 'Spellbook',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CharSheetStats extends StatefulWidget {
+  const CharSheetStats({super.key});
+
+  @override
+  _CharSheetStatsState createState() => _CharSheetStatsState();
+}
+
+class _CharSheetStatsState extends State<CharSheetStats> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Character Stats Page'),
+    );
+  }
+}
+
+class SpellbookPage extends StatefulWidget {
+  const SpellbookPage({super.key});
+
+  @override
+  _SpellbookPageState createState() => _SpellbookPageState();
+}
+
+class _SpellbookPageState extends State<SpellbookPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Spellbook Page'),
+    );
+  }
+}
+
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
+
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Settings Page'),
+    );
+  }
 }
