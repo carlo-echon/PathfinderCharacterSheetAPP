@@ -86,33 +86,97 @@ class CharSheetStats extends StatefulWidget {
 class _CharSheetStatsState extends State<CharSheetStats> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Row(
-            children: [
-              Column(
+          // First Box with character details
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
                 children: [
-                  Text("Character Name"),
-                  Text("Level"),
+                  Expanded(
+                    child: Column(
+                      children: const [
+                        NameBox(title: "Character Name"),
+                        NameBox(title: "User"),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: const [
+                        DetailBox(title: "Level"),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: const [
+                        NameBox(title: "Class"),
+                        NameBox(title: "Sub-class"),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              Column(
-                children: [Text("Armor Class"),],
-              ),
-              Column(
-                children: [
-                  Text("Class"),
-                  Text("Sub-class"),
-                ],
-                ),
-            ],
-          ),
-          Row(
-            children: [
-              Text('Stats: Str Dex Wis Cha Int Con'),
-            ],
             ),
+          ),
+          const SizedBox(height: 8),
+          // Second Box with character stats
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(child: Text("Stats", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),),
+                  Row(
+                    children: const [
+                      DetailBox(title: "Str"),
+                      DetailBox(title: "Dex"),
+                      DetailBox(title: "Con"),
+                      DetailBox(title: "Cha"),
+                      DetailBox(title: "Int"),
+                      DetailBox(title: "Wis"),
+                    ],
+                  ),
+                  Row(
+                    children: const[
+                      Column(children: [
+                      DetailBox(title: "Fortitude Save"),
+                      DetailBox(title: "Will Save"),
+                      DetailBox(title: "Reflex Save"),
+                      ],),
+                      DetailBox(title: "Initiative"),
+                      DetailBox(title: "AC"),
+                    ],
+                    ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 8,),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(child: Text("Skills", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),),
+                  Row(
+                    children: [
+                      NameBox(title: "Stats List 1"),
+                      NameBox(title: "Stats List 2"),
+                      NameBox(title: "Stats List 3"),
+                    ],
+                  ),
+
+                ],
+              )
+              ),
+          ),
         ],
       ),
     );
@@ -164,6 +228,52 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Center(
       child: Text('Settings Page'),
+    );
+  }
+}
+
+class NameBox extends StatelessWidget {
+  final String title;
+
+  const NameBox({
+    super.key,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DetailBox extends StatelessWidget {
+  final String title;
+
+  const DetailBox({
+    super.key,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          ],
+        ),
+      ),
     );
   }
 }
